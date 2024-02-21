@@ -20,6 +20,7 @@ class GAStimulusGeneratorConfig:
     frequency_sigma: float
     level_sigma: float
     mutation_rate: float
+    cross_top: float
 
 
 @dataclass
@@ -114,11 +115,13 @@ class GAStimulusGenerator(StimulusGenerator):
         # todo: add theoretical prediction(s)
         child_num = self.config.population_size - self.config.elite_num
 
-        fitnesses = np.asarray([self._fitness(record) for record in last_records])
+        cross_num = int(self.config.population_size * self.config.cross_top)    # num of parent candidates
+
+        fitnesses = np.asarray([self._fitness(record) for record in last_records[:cross_num]])
         choice_probs = fitnesses / np.sum(fitnesses)    # normalize
 
-        mothers = np.random.choice(last_stimuli, child_num, p=choice_probs)
-        fathers = np.random.choice(last_stimuli, child_num, p=choice_probs)
+        mothers = np.random.choice(last_stimuli[:cross_num], child_num, p=choice_probs)
+        fathers = np.random.choice(last_stimuli[:cross_num], child_num, p=choice_probs)
         child_stimuli = [self._cross(mothers[i], fathers[i]) for i in range(child_num)]
 
         new_stimuli = elite_stimuli + child_stimuli
@@ -129,15 +132,3 @@ class GAStimulusGenerator(StimulusGenerator):
         self.current_iter += 1
 
         return list(new_stimuli)
-
-
-
-
-
-
-
-
-
-
-
-
