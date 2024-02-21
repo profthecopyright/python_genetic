@@ -1,0 +1,14 @@
+{
+    "min_freq": 0.5,
+    "max_freq": 16,
+    "min_level": 10,
+    "max_level": 60,
+    "component_num": 20,
+    "population_size": 100,
+    "elite_num": 10,
+    "max_iter": 100,
+    "frequency_sigma": 0.05,
+    "level_sigma": 10,
+    "mutation_rate": 0.1
+}
+

@@ -3,7 +3,7 @@ import numpy as np
 
 class Stimulus:
     def __init__(self, frequencies=None, levels=None, phases=None, data=None):
-        if data:
+        if data is not None:
             self._data = np.asarray(data, dtype=np.float64)
 
             if self._data.ndim == 2 and self._data.shape[0] >= 3:
@@ -13,17 +13,17 @@ class Stimulus:
         else:
             self._data = np.ndarray(shape=(3, len(frequencies)), dtype=np.float64)
 
-            if frequencies:
+            if frequencies is not None:
                 self._data[0, :] = frequencies
             else:
                 pass
 
-            if levels:
+            if levels is not None:
                 self._data[1, :] = levels
             else:
                 pass
 
-            if phases:
+            if phases is not None:
                 self._data[2, :] = phases
             else:
                 pass

@@ -15,10 +15,10 @@ class Unit(ABC):
 
 # assume Gaussian frequency-rate tuning curve and linear level-rate tuning curve
 class VShapedUnit(Unit):
-    def __init__(self, characteristic_frequency=1000, bandwidth=200, weight_amplitude=0.1, bias=0.5, **kwargs):
+    def __init__(self, characteristic_frequency=4, bandwidth=0.2, weight_amplitude=0.001, bias=0, **kwargs):
         super().__init__(**kwargs)
-        self.cf = characteristic_frequency
-        self.bw = bandwidth
+        self.cf = characteristic_frequency  # kHz
+        self.bw = bandwidth         # kHz
         self.bias = bias            # positive bias ~ threshold, negative bias ~ spontaneous rate
         self.wa = weight_amplitude  # level-rate coefficient at CF
 
