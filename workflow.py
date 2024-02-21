@@ -1,13 +1,14 @@
 import json
 
 from osd.stimulus import Stimulus
-from osd.unit import VShapedUnit
+from osd.unit import VShapedUnit, OShapedUnit
 from osd.ga_stimulus_generator import GAStimulusGeneratorConfig, GAStimulusGenerator
 
 
 class Experiment:
     def __init__(self):
-        self.unit = VShapedUnit()
+        # self.unit = VShapedUnit()
+        self.unit = OShapedUnit()
 
     # a simple simulation of an experiment.
     # The return value can be a list of non-negative scalar,
