@@ -54,5 +54,3 @@ class Stimulus:
 
     def __repr__(self):
         return f"Stimulus <components={self._data.shape[1]}, f={self.frequencies}, A={self.levels}, p={self.phases}>"
-
-

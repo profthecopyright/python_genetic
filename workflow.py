@@ -25,7 +25,7 @@ if __name__ == '__main__':
     config = GAStimulusGeneratorConfig(**d)
     stim_gen = GAStimulusGenerator(config=config)
 
-    total_batches = 100
+    total_batches = 50
 
     print("Experiment Starts.\n")
 
@@ -40,4 +40,3 @@ if __name__ == '__main__':
         print(f"Batch {k} Finished.\n")
 
     print("\nExperiment Done.")
-

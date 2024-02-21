@@ -27,7 +27,3 @@ class VShapedUnit(Unit):
         input = np.dot(weights, stimulus.levels) - self.bias
 
         return 1 / (1 + np.exp(-input))
-
-
-
-
