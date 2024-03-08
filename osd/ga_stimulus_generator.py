@@ -7,7 +7,6 @@ from osd.stimulus import Stimulus
 import numpy as np
 
 
-"""
 @dataclass
 class GAStimulusGeneratorConfig:
     min_freq: float
@@ -22,25 +21,6 @@ class GAStimulusGeneratorConfig:
     level_sigma: float
     mutation_rate: float
     cross_top: float
-"""
-
-
-class GAStimulusGeneratorConfig:
-    def __init__(self, min_freq, max_freq, min_level, max_level, component_num, population_size,
-                 elite_num, max_iter, frequency_sigma, level_sigma, mutation_rate, cross_top):
-        self.min_freq = min_freq
-        self.max_freq = max_freq
-        self.min_level = min_level
-        self.max_level = max_level
-        self.component_num = component_num
-        self.population_size = population_size
-        self.elite_num = elite_num
-        self.max_iter = max_iter
-        self.frequency_sigma = frequency_sigma
-        self.level_sigma = level_sigma
-        self.mutation_rate = mutation_rate
-        self.cross_top = cross_top
-
 
 
 @dataclass
