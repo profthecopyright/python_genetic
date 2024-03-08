@@ -39,7 +39,7 @@ class GAStimulusGenerator(StimulusGenerator):
         if not self.all_records:
             return self._generate_first_batch()
         elif self.current_iter >= self.config.max_iter:
-            raise('generate_stimuli(): current_iter > max_iter!')
+            raise Exception('generate_stimuli(): current_iter > max_iter!')
         else:
             return self._generate_next_batch()
 
@@ -49,7 +49,7 @@ class GAStimulusGenerator(StimulusGenerator):
                 result = results[k]
                 self.all_records[self.current_iter][k].result = result
         else:
-            raise('update_results(): current_iter > max_iter!')
+            raise Exception('update_results(): current_iter > max_iter!')
 
     # ================== Helper Methods Below ============================
 

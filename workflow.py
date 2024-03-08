@@ -1,5 +1,6 @@
 import json
 
+import numpy as np
 from osd.stimulus import Stimulus
 from osd.unit import VShapedUnit, OShapedUnit
 from osd.ga_stimulus_generator import GAStimulusGeneratorConfig, GAStimulusGenerator
@@ -11,13 +12,12 @@ class Experiment:
         self.unit = OShapedUnit()
 
     # a simple simulation of an experiment.
-    # The return value can be a list of non-negative scalar,
-    # or a list of 1D array (if so, only the mean is considered for now!).
+    # The return value should be a list of 1D array (currently only the mean is considered for now!).
     def test(self, stimuli: list[Stimulus]):
-        return [self.unit.rate(stimulus) for stimulus in stimuli]
+        return np.asarray([[self.unit.rate(stimulus)] for stimulus in stimuli])
 
 
-if __name__ == '__main__':
+def main_test():
     experiment = Experiment()
 
     with open("gasg_config.json", "r") as f:
@@ -35,9 +35,15 @@ if __name__ == '__main__':
         stimuli = stim_gen.generate_stimuli()
         print(f"Stimuli Batch {k} Generated (size = {len(stimuli)}). Testing...")
         results = experiment.test(stimuli)
-        print(f"Batch {k} tested. Max Readout = {max(results) if results else -1}")
+        print(f"Batch {k} tested. Max Readout = {max(results)}")
         print("Updating Stimulus Generator...")
         stim_gen.update_results(results)
         print(f"Batch {k} Finished.\n")
 
     print("\nExperiment Done.")
+
+    print(stim_gen.all_records[-1][:10])
+
+
+if __name__ == '__main__':
+    main_test()
