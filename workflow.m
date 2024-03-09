@@ -1,5 +1,13 @@
 % reference: https://www.mathworks.com/help/matlab/matlab_external/call-user-defined-custom-module.html
 % A Demo Workflow
+% Work with Python 3.8 and Matlab 2017a/2022b
+% Don't use 3.9+!
+
+% Install python 3.8 first and add to PATH
+% pip install numpy
+% In Matlab, run pyversion('3.8')
+
+% console run "clear all" when python code changes
 
 % add current path
 if count(py.sys.path,pwd) == 0
@@ -7,7 +15,6 @@ if count(py.sys.path,pwd) == 0
 end
 
 osdm = py.importlib.import_module('osd_matlab_interface');    % load package osd (optimal stimulus design)
-py.importlib.reload(osdm);
 c = jsondecode(fileread('gasg_config.json'));   % load config file. python json module does not work well
 
 % it has to be like this
@@ -32,9 +39,15 @@ for k = 1:total_batches
     % ======== Convert parameters to waveforms ====================
     
     % To access the parameters of each stimulus, use e.g.
-    f = double(stimuli{1}.frequencies);
-    A = double(stimuli{1}.levels);
-    p = double(stimuli{1}.phases);
+    % The result here is of ndarray type
+    f = stimuli{1}.frequencies;
+    A = stimuli{1}.levels;
+    p = stimuli{1}.phases;
+    
+    % ======== double() in Matlab 2017a is dumb ===================
+    f = cellfun(@double,cell(f.tolist()));
+    A = cellfun(@double,cell(A.tolist()));
+    p = cellfun(@double,cell(p.tolist()));
 
     % ========= Deliver stimulus and do experiment =================
     
@@ -51,8 +64,8 @@ for k = 1:total_batches
     % all entries of valid results MUST BE POSITIVE
    
     % ===========================================================
-
-    stim_gen.update_results(py.numpy.array(results));
+    
+    stim_gen.update_results(osdm.to_ndarray(results(:)', c.population_size, channel_num));
     disp(['Batch ' num2str(k) ' of ' num2str(total_batches) ' Finished.'])
     disp(['Max Readout = ' num2str(max(mean(results, 2)))])
     disp('----------------------------------------------------------')

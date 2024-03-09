@@ -9,7 +9,7 @@ class StimulusGenerator(ABC):
         super().__init__()
 
     @abstractmethod
-    def generate_stimuli(self, **kwargs) -> list[Stimulus]:
+    def generate_stimuli(self, **kwargs) -> list:
         return []
 
     @abstractmethod

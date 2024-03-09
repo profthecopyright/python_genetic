@@ -23,6 +23,7 @@ class GAStimulusGeneratorConfig:
     cross_top: float
 
 
+
 @dataclass
 class DataRecord:
     stimulus: Stimulus
@@ -35,7 +36,7 @@ class GAStimulusGenerator(StimulusGenerator):
         self.config = config
         self._reset()
 
-    def generate_stimuli(self, **kwargs) -> list[Stimulus]:
+    def generate_stimuli(self, **kwargs) -> list:
         if not self.all_records:
             return self._generate_first_batch()
         elif self.current_iter >= self.config.max_iter:
