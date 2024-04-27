@@ -73,4 +73,19 @@ end
 
 disp('Experiment Finished.')
 
+% ===================== Test Stream Agent =========================
+% https://www.mathworks.com/matlabcentral/answers/386484-license-manager-error-1-when-call-python-module-which-includes-multiprocessing
+[v, exe] = pyversion;
+py.multiprocessing.spawn.set_executable(exe);
+
+agent = osdm.StreamAgent();
+agent.start()
+
+for k = 1:5
+    disp("Please Wait for 5 seconds");
+    pause(5);
+    result = agent.fetch();
+    disp(result)
+end
+
 % check stim_gen.all_records for the entire experiment history

@@ -2,6 +2,7 @@ import numpy as np
 
 from osd.ga_stimulus_generator import GAStimulusGeneratorConfig, GAStimulusGenerator
 from osd.unit import VShapedUnit, OShapedUnit
+from stream.stream_agent import StreamAgent
 
 
 # Matlab 2017a compatibility interface
