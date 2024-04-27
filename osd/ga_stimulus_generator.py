@@ -3,6 +3,7 @@ from typing import Any
 
 from osd.stimulus_generator import StimulusGenerator
 from osd.stimulus import Stimulus
+from osd.fitter import Fitter
 
 import numpy as np
 
@@ -34,6 +35,7 @@ class GAStimulusGenerator(StimulusGenerator):
     def __init__(self, config: GAStimulusGeneratorConfig):
         super().__init__()
         self.config = config
+        self.fitter = Fitter()
         self._reset()
 
     def generate_stimuli(self, **kwargs) -> list:
@@ -112,6 +114,10 @@ class GAStimulusGenerator(StimulusGenerator):
         last_stimuli = [record.stimulus for record in last_records]
 
         elite_stimuli = last_stimuli[:self.config.elite_num]
+
+        last_results = [record.result for record in last_records]
+
+        # print(self.fitter.fit(last_stimuli, last_results))
 
         # todo: add theoretical prediction(s)
         child_num = self.config.population_size - self.config.elite_num

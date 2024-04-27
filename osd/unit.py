@@ -46,3 +46,16 @@ class OShapedUnit(Unit):
         input = np.dot(weights, level_multipliers) - self.bias
 
         return 1 / (1 + np.exp(-input))
+
+
+class HTNUnit(Unit):
+    def __init__(self, input_neurons, input_weights, gain):
+        self.input_neurons = input_neurons
+        self.input_weights = input_weights
+        self.gain = gain
+
+    def rate(self, stimulus):
+        individual_rates = [n.rate(stimulus) for n in self.input_neurons]
+        out = np.dot(self.input_weights, individual_rates)
+
+        return self.gain * 1 / (1 + np.exp(-out))
